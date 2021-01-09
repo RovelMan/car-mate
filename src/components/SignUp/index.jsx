@@ -55,7 +55,6 @@ class SignUpFormBase extends React.Component {
     this.props.firebase
       .doCreateUser(email, password)
       .then(authUser => {
-        console.log(authUser);
         this.setState({
           username,
           email,
@@ -66,10 +65,6 @@ class SignUpFormBase extends React.Component {
       .catch(error => {
         this.setState({ error });
       });
-  }
-
-  onFinishFailed = (e) => {
-
   }
 
   render() {
