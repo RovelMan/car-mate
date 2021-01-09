@@ -1,58 +1,11 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import './App.css';
-import Navbar from "./components/Navbar/Navbar";
 import { Layout, Menu } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 
-export default function App() {
-  return (
-    <Router>
-      <Layout>
-        <Navbar />
-        <Layout>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-          </Switch>
-        </Layout>
-      </Layout>
-    </Router>
-  );
-}
-
-function Home() {
-  return (
-    <Layout style={{ padding: '0 24px 24px' }}>
-      <Content
-        className="site-layout-background"
-        style={{
-          padding: 24,
-          marginTop: 24,
-          minHeight: 280,
-        }}
-      >
-        Home
-      </Content>
-    </Layout>
-  );
-}
-
-function Dashboard() {
+export default function Home() {
   return (
     <Layout>
       <Sider width={200} className="site-layout-background">
@@ -91,26 +44,9 @@ function Dashboard() {
             minHeight: 280
           }}
         >
-          Dashboard
+          Home
         </Content>
       </Layout>
-    </Layout>
-  );
-}
-
-function Login() {
-  return (
-    <Layout style={{ padding: '0 24px 24px' }}>
-      <Content
-        className="site-layout-background"
-        style={{
-          padding: 24,
-          marginTop: 24,
-          minHeight: 280,
-        }}
-      >
-        Login
-      </Content>
     </Layout>
   );
 }
