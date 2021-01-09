@@ -13,6 +13,7 @@ import LoginPage from '../Login';
 import SignUpPage from '../SignUp';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
+import PageNotFound from '../PageNotFound';
 import * as ROUTES from '../../constants/routes';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
             <Route path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route component={PageNotFound} />
           </Switch>
         </Layout>
       </Layout>
