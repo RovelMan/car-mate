@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout } from 'antd';
+import { FirebaseContext } from '../Firebase';
 
 const { Content } = Layout;
 
@@ -13,8 +14,13 @@ export default function Landing() {
           marginTop: 24,
           minHeight: 280,
         }}
-      >
+        >
         Landing
+        <FirebaseContext.Consumer>
+          {firebase => {
+            return <div>I've access to Firebase.</div>;
+          }}
+        </FirebaseContext.Consumer>
       </Content>
     </Layout>
   );
