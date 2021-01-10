@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/car-mate/static/css/main.0288d6c3.chunk.css",
-    "main.js": "/car-mate/static/js/main.991c5849.chunk.js",
-    "main.js.map": "/car-mate/static/js/main.991c5849.chunk.js.map",
-    "runtime-main.js": "/car-mate/static/js/runtime-main.e5ef8bdb.js",
-    "runtime-main.js.map": "/car-mate/static/js/runtime-main.e5ef8bdb.js.map",
-    "static/js/2.91a42f00.chunk.js": "/car-mate/static/js/2.91a42f00.chunk.js",
-    "static/js/2.91a42f00.chunk.js.map": "/car-mate/static/js/2.91a42f00.chunk.js.map",
-    "static/js/3.78ee3082.chunk.js": "/car-mate/static/js/3.78ee3082.chunk.js",
-    "static/js/3.78ee3082.chunk.js.map": "/car-mate/static/js/3.78ee3082.chunk.js.map",
+    "main.js": "/car-mate/static/js/main.05b68460.chunk.js",
+    "main.js.map": "/car-mate/static/js/main.05b68460.chunk.js.map",
+    "runtime-main.js": "/car-mate/static/js/runtime-main.757883d6.js",
+    "runtime-main.js.map": "/car-mate/static/js/runtime-main.757883d6.js.map",
+    "static/js/2.6fbcc589.chunk.js": "/car-mate/static/js/2.6fbcc589.chunk.js",
+    "static/js/2.6fbcc589.chunk.js.map": "/car-mate/static/js/2.6fbcc589.chunk.js.map",
+    "static/js/3.b90a858c.chunk.js": "/car-mate/static/js/3.b90a858c.chunk.js",
+    "static/js/3.b90a858c.chunk.js.map": "/car-mate/static/js/3.b90a858c.chunk.js.map",
     "index.html": "/car-mate/index.html",
     "static/css/main.0288d6c3.chunk.css.map": "/car-mate/static/css/main.0288d6c3.chunk.css.map",
-    "static/js/2.91a42f00.chunk.js.LICENSE.txt": "/car-mate/static/js/2.91a42f00.chunk.js.LICENSE.txt"
+    "static/js/2.6fbcc589.chunk.js.LICENSE.txt": "/car-mate/static/js/2.6fbcc589.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e5ef8bdb.js",
-    "static/js/2.91a42f00.chunk.js",
+    "static/js/runtime-main.757883d6.js",
+    "static/js/2.6fbcc589.chunk.js",
     "static/css/main.0288d6c3.chunk.css",
-    "static/js/main.991c5849.chunk.js"
+    "static/js/main.05b68460.chunk.js"
   ]
 }
