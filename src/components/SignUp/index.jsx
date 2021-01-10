@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import { Layout } from 'antd';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import { Alert, Form, Input, Button } from 'antd';
+import { Alert, Form, Input, Layout, Button } from 'antd';
 
 const { Content } = Layout;
 const layout = {
@@ -83,11 +82,7 @@ class SignUpFormBase extends React.Component {
       username === '';
 
     return (
-      <Form
-        {...layout}
-        onFinish={this.onFinish}
-        onFinishFailed={this.onFinishFailed}
-      >
+      <Form {...layout} onFinish={this.onFinish} >
         <Form.Item
           label="Username"
           name="username"
