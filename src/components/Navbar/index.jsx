@@ -32,7 +32,7 @@ class NavbarBase extends React.Component {
       <Header>
         <Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]} onSelect={this.onSelect}>
           <Menu.Item key={ROUTES.LANDING}><Link to={ROUTES.LANDING}>Landing</Link></Menu.Item>
-          <Menu.Item key={ROUTES.LOGIN}><Link to={ROUTES.LOGIN}>Login</Link></Menu.Item>
+          <Menu.Item key={ROUTES.SIGN_IN}><Link to={ROUTES.SIGN_IN}>Sign In</Link></Menu.Item>
           <Menu.Item key={ROUTES.SIGN_UP}><Link to={ROUTES.SIGN_UP}>Sign Up</Link></Menu.Item>
           <Menu.Item key={ROUTES.HOME}><Link to={ROUTES.HOME}>Home</Link></Menu.Item>
           <Menu.Item key={ROUTES.ACCOUNT}><Link to={ROUTES.ACCOUNT}>Account</Link></Menu.Item>

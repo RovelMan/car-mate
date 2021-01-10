@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 
 const { Content } = Layout;
 
-export default function Login() {
+export default function SignIn() {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Content
@@ -14,7 +14,7 @@ export default function Login() {
           minHeight: 280,
         }}
       >
-        Login
+        Sign In
       </Content>
     </Layout>
   );
