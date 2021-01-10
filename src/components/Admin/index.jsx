@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { Layout } from 'antd';
+import { Layout, Typography } from 'antd';
+
+// import * as ROLES from '../../constants/roles';
+import { withAuthorization } from '../Session';
 
 const { Content } = Layout;
+const { Title, Paragraph } = Typography;
 
-export default function Admin() {
+function Admin() {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Content
@@ -14,8 +18,16 @@ export default function Admin() {
           minHeight: 280,
         }}
       >
-        Admin
+        <Title>Admin</Title>
+        <Paragraph>
+          Restricted area! Only users with the admin role are authorized.
+        </Paragraph>
       </Content>
     </Layout>
   );
 }
+
+// const condition = (authUser) => authUser && !!authUser.roles[ROLES.ADMIN];
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(Admin);

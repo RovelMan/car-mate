@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Typography } from 'antd';
+import { withAuthorization } from '../Session';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
+const { Title, Paragraph } = Typography;
 
-export default function Home() {
+function Home() {
   return (
     <Layout>
       <Sider width={200} className="site-layout-background">
@@ -44,9 +46,16 @@ export default function Home() {
             minHeight: 280,
           }}
         >
-          Home
+          <Title level={3}>Home</Title>
+          <Paragraph>
+            The Home Page is accessible by every signed in user.
+          </Paragraph>
         </Content>
       </Layout>
     </Layout>
   );
 }
+
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(Home);
