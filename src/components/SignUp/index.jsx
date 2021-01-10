@@ -55,8 +55,12 @@ class SignUpFormBase extends React.Component {
   onFinish = () => {
     const { username, email, password } = this.state;
     const { firebase, history } = this.props;
+    // Create user in Firebase realtime database
     firebase
       .doCreateUser(email, password)
+      .then((authUser) => firebase
+        .user(authUser.user.uid)
+        .set({ username, email }))
       .then(() => {
         this.setState({
           username,
