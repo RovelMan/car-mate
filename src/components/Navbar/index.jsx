@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import AuthUserContext from '../Session';
 import SignOutButton from '../SignOut';
 
 import * as ROUTES from '../../constants/routes';
@@ -31,27 +32,35 @@ class NavbarBase extends React.Component {
 
   render() {
     const { selectedKey } = this.state;
-    const { authUser } = this.props;
-    if (authUser) {
-      return (
-        <Header>
-          <Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]} onSelect={this.onSelect}>
-            <Menu.Item key={ROUTES.LANDING}><Link to={ROUTES.LANDING}>Landing</Link></Menu.Item>
-            <Menu.Item key={ROUTES.HOME}><Link to={ROUTES.HOME}>Home</Link></Menu.Item>
-            <Menu.Item key={ROUTES.ACCOUNT}><Link to={ROUTES.ACCOUNT}>Account</Link></Menu.Item>
-            <Menu.Item key={ROUTES.ADMIN}><Link to={ROUTES.ADMIN}>Admin</Link></Menu.Item>
-            <Menu.Item key="sign_out"><SignOutButton /></Menu.Item>
-          </Menu>
-        </Header>
-      );
-    }
+    const authLinks = [
+      { uri: ROUTES.LANDING, text: 'Landing' },
+      { uri: ROUTES.HOME, text: 'Home' },
+      { uri: ROUTES.ACCOUNT, text: 'Account' },
+      { uri: ROUTES.ADMIN, text: 'Admin' },
+    ];
+    const unauthlinks = [
+      { uri: ROUTES.LANDING, text: 'Landing' },
+      { uri: ROUTES.SIGN_IN, text: 'Sign In' },
+      { uri: ROUTES.SIGN_UP, text: 'Sign Up' },
+    ];
+
     return (
       <Header>
-        <Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]} onSelect={this.onSelect}>
-          <Menu.Item key={ROUTES.LANDING}><Link to={ROUTES.LANDING}>Landing</Link></Menu.Item>
-          <Menu.Item key={ROUTES.SIGN_IN}><Link to={ROUTES.SIGN_IN}>Sign In</Link></Menu.Item>
-          <Menu.Item key={ROUTES.SIGN_UP}><Link to={ROUTES.SIGN_UP}>Sign Up</Link></Menu.Item>
-        </Menu>
+        <AuthUserContext.Consumer>
+          {(authUser) => {
+            const links = authUser ? authLinks : unauthlinks;
+            return (
+              <Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]} onSelect={this.onSelect}>
+                {links.map((link) => (
+                  <Menu.Item key={link.uri}>
+                    <Link to={link.uri}>{link.text}</Link>
+                  </Menu.Item>
+                ))}
+                {authUser && <Menu.Item key="sign_out"><SignOutButton /></Menu.Item>}
+              </Menu>
+            );
+          }}
+        </AuthUserContext.Consumer>
       </Header>
     );
   }

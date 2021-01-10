@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
-import { withFirebase } from '../Firebase';
+import { withAuthentication } from '../Session';
 
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
@@ -19,48 +19,25 @@ import SignUpPage from '../SignUp';
 
 import * as ROUTES from '../../constants/routes';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authUser: null,
-    };
-  }
-
-  componentDidMount() {
-    const { firebase } = this.props;
-    this.listener = firebase.auth.onAuthStateChanged((authUser) => {
-      authUser
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
-    });
-  }
-
-  componentWillUnmount() {
-    this.listener();
-  }
-
-  render() {
-    const { authUser } = this.state;
-    return (
-      <Router>
+function App() {
+  return (
+    <Router>
+      <Layout>
+        <Navbar />
         <Layout>
-          <Navbar authUser={authUser} />
-          <Layout>
-            <Switch>
-              <Route exact path={ROUTES.LANDING} component={LandingPage} />
-              <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-              <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-              <Route path={ROUTES.HOME} component={HomePage} />
-              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-              <Route path={ROUTES.ADMIN} component={AdminPage} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </Layout>
+          <Switch>
+            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route component={PageNotFound} />
+          </Switch>
         </Layout>
-      </Router>
-    );
-  }
+      </Layout>
+    </Router>
+  );
 }
 
-export default withFirebase(App);
+export default withAuthentication(App);
