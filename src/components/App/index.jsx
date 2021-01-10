@@ -14,6 +14,7 @@ import HomePage from '../Home';
 import LandingPage from '../Landing';
 import Navbar from '../Navbar';
 import PageNotFound from '../PageNotFound';
+import PasswordForgetPage from '../PasswordForget';
 import SignInPage from '../SignIn';
 import SignUpPage from '../SignUp';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
             <Route component={PageNotFound} />
           </Switch>
         </Layout>

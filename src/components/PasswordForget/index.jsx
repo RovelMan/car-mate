@@ -2,14 +2,12 @@ import * as React from 'react';
 import {
   Alert, Button, Form, Input, Layout,
 } from 'antd';
+import { Link } from 'react-router-dom';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
 
-import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 
 import * as ROUTES from '../../constants/routes';
-import { PasswordForgetLink } from '../PasswordForget';
 
 const { Content } = Layout;
 const layout = {
@@ -20,7 +18,7 @@ const tailLayout = {
   wrapperCol: { offset: 6, span: 16 },
 };
 
-export default function SignIn() {
+export default function PasswordForget() {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Content
@@ -31,21 +29,18 @@ export default function SignIn() {
           minHeight: 280,
         }}
       >
-        <h1>Sign In</h1>
-        <SignInForm />
-        <PasswordForgetLink />
-        <SignUpLink />
+        <h1>Password Forget</h1>
+        <PasswordForgetForm />
       </Content>
     </Layout>
   );
 }
 
-class SignInFormBase extends React.Component {
+class PasswordForgetBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
       error: null,
     };
   }
@@ -55,16 +50,12 @@ class SignInFormBase extends React.Component {
   }
 
   onFinish = () => {
-    const { email, password } = this.state;
-    const { firebase, history } = this.props;
+    const { email } = this.state;
+    const { firebase } = this.props;
     firebase
-      .doSignIn(email, password)
+      .doPasswordReset(email)
       .then(() => {
-        this.setState({
-          email,
-          password,
-        });
-        history.push(ROUTES.HOME);
+        this.setState({ email });
       })
       .catch((error) => {
         this.setState({ error });
@@ -72,8 +63,8 @@ class SignInFormBase extends React.Component {
   }
 
   render() {
-    const { email, password, error } = this.state;
-    const isInvalid = password === '' || email === '';
+    const { email, error } = this.state;
+    const isInvalid = email === '';
     return (
       <Form {...layout} onFinish={this.onFinish}>
         <Form.Item
@@ -85,18 +76,9 @@ class SignInFormBase extends React.Component {
         >
           <Input placeholder="Enter your email address" />
         </Form.Item>
-        <Form.Item
-          label="Password"
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password placeholder="Enter your password" />
-        </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" disabled={isInvalid} htmlType="submit">
-            Sign In
+            Reset My Password
           </Button>
         </Form.Item>
         {error && <Alert message={error.message} type="error" showIcon />}
@@ -105,9 +87,14 @@ class SignInFormBase extends React.Component {
   }
 }
 
-const SignInForm = compose(
-  withRouter,
-  withFirebase,
-)(SignInFormBase);
+const PasswordForgetLink = () => (
+  <p>
+    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+  </p>
+);
 
-export { SignInForm };
+const PasswordForgetForm = compose(
+  withFirebase,
+)(PasswordForgetBase);
+
+export { PasswordForgetForm, PasswordForgetLink };
