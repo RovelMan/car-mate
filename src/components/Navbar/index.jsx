@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import { compose } from 'recompose';
+import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 
 const { Header } = Layout;
@@ -37,6 +38,7 @@ class NavbarBase extends React.Component {
           <Menu.Item key={ROUTES.HOME}><Link to={ROUTES.HOME}>Home</Link></Menu.Item>
           <Menu.Item key={ROUTES.ACCOUNT}><Link to={ROUTES.ACCOUNT}>Account</Link></Menu.Item>
           <Menu.Item key={ROUTES.ADMIN}><Link to={ROUTES.ADMIN}>Admin</Link></Menu.Item>
+          <Menu.Item key="sign_out"><SignOutButton /></Menu.Item>
         </Menu>
       </Header>
     )
