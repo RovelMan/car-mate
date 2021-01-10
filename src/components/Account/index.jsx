@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { Layout } from 'antd';
+import { Layout, Typography } from 'antd';
+
+import { PasswordChangeForm } from '../PasswordChange';
+import { PasswordForgetForm } from '../PasswordForget';
 
 const { Content } = Layout;
+const { Title } = Typography;
 
 export default function Account() {
   return (
@@ -14,7 +18,11 @@ export default function Account() {
           minHeight: 280,
         }}
       >
-        Account
+        <Title>Account</Title>
+        <Title level={3}>Password Forget</Title>
+        <PasswordForgetForm />
+        <Title level={3}>Password Change</Title>
+        <PasswordChangeForm />
       </Content>
     </Layout>
   );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Alert, Button, Form, Input, Layout,
+  Alert, Button, Form, Input, Layout, Typography,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -10,6 +10,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const { Content } = Layout;
+const { Title } = Typography;
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 16 },
@@ -29,7 +30,7 @@ export default function PasswordForget() {
           minHeight: 280,
         }}
       >
-        <h1>Password Forget</h1>
+        <Title level={3}>Password Forget</Title>
         <PasswordForgetForm />
       </Content>
     </Layout>

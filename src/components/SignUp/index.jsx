@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Alert, Button, Form, Input, Layout,
+  Alert, Button, Form, Input, Layout, Typography,
 } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -9,6 +9,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const { Content } = Layout;
+const { Title } = Typography;
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 16 },
@@ -28,7 +29,7 @@ export default function SignUp() {
           minHeight: 280,
         }}
       >
-        <h1>Sign Up</h1>
+        <Title level={3}>Sign Up</Title>
         <SignUpForm />
       </Content>
     </Layout>

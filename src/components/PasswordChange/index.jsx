@@ -3,13 +3,8 @@ import {
   Alert, Button, Form, Input, Layout, Typography,
 } from 'antd';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
 
-import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
-
-import * as ROUTES from '../../constants/routes';
-import { PasswordForgetLink } from '../PasswordForget';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -21,7 +16,7 @@ const tailLayout = {
   wrapperCol: { offset: 6, span: 16 },
 };
 
-export default function SignIn() {
+export default function PasswordChange() {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
       <Content
@@ -32,21 +27,19 @@ export default function SignIn() {
           minHeight: 280,
         }}
       >
-        <Title level={3}>Sign In</Title>
-        <SignInForm />
-        <PasswordForgetLink />
-        <SignUpLink />
+        <Title level={3}>Password Change</Title>
+        <PasswordChangeForm />
       </Content>
     </Layout>
   );
 }
 
-class SignInFormBase extends React.Component {
+class PasswordChangeBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       password: '',
+      confirmPassword: '',
       error: null,
     };
   }
@@ -56,16 +49,12 @@ class SignInFormBase extends React.Component {
   }
 
   onFinish = () => {
-    const { email, password } = this.state;
-    const { firebase, history } = this.props;
+    const { password } = this.state;
+    const { firebase } = this.props;
     firebase
-      .doSignIn(email, password)
+      .doPasswordUpdate(password)
       .then(() => {
-        this.setState({
-          email,
-          password,
-        });
-        history.push(ROUTES.HOME);
+        this.setState({ password });
       })
       .catch((error) => {
         this.setState({ error });
@@ -73,31 +62,31 @@ class SignInFormBase extends React.Component {
   }
 
   render() {
-    const { email, password, error } = this.state;
-    const isInvalid = password === '' || email === '';
+    const { password, confirmPassword, error } = this.state;
+    const isInvalid = password !== confirmPassword || password === '';
     return (
       <Form {...layout} onFinish={this.onFinish}>
-        <Form.Item
-          label="Email"
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input placeholder="Enter your email address" />
-        </Form.Item>
         <Form.Item
           label="Password"
           name="password"
           value={password}
           onChange={this.onChange}
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[{ required: true, message: 'Please input your new password!' }]}
         >
-          <Input.Password placeholder="Enter your password" />
+          <Input.Password placeholder="Enter your new password" />
+        </Form.Item>
+        <Form.Item
+          label="Confirm Password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={this.onChange}
+          rules={[{ required: true, message: 'Please confirm your new password!' }]}
+        >
+          <Input.Password placeholder="Confirm your new password" />
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" disabled={isInvalid} htmlType="submit">
-            Sign In
+            Reset My Password
           </Button>
         </Form.Item>
         {error && <Alert message={error.message} type="error" showIcon />}
@@ -106,9 +95,8 @@ class SignInFormBase extends React.Component {
   }
 }
 
-const SignInForm = compose(
-  withRouter,
+const PasswordChangeForm = compose(
   withFirebase,
-)(SignInFormBase);
+)(PasswordChangeBase);
 
-export { SignInForm };
+export { PasswordChangeForm };
