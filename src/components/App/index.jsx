@@ -16,23 +16,33 @@ import AdminPage from '../Admin';
 import PageNotFound from '../PageNotFound';
 import * as ROUTES from '../../constants/routes';
 
-export default function App() {
-  return (
-    <Router>
-      <Layout>
-        <Navbar />
+export default class App extends React.Component {
+  constructor(props) {
+    super (props);
+
+    this.state = {
+      authUser: null,
+    };
+  }
+
+  render() {
+    return (
+      <Router>
         <Layout>
-          <Switch>
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
-            <Route component={PageNotFound} />
-          </Switch>
+          <Navbar authUser={this.state.authUser} />
+          <Layout>
+            <Switch>
+              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+              <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+              <Route path={ROUTES.HOME} component={HomePage} />
+              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route path={ROUTES.ADMIN} component={AdminPage} />
+              <Route component={PageNotFound} />
+            </Switch>
+          </Layout>
         </Layout>
-      </Layout>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
