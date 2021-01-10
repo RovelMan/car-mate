@@ -4,10 +4,12 @@
   "private": true,
   "homepage": "http://RovelMan.github.io/car-mate",
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.9.4",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "firebase": "^8.2.2",
     "gh-pages": "^3.1.0",
     "react": "^17.0.1",

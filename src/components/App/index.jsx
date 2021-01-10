@@ -1,24 +1,26 @@
+import './App.css';
 import * as React from 'react';
+import { Layout } from 'antd';
 import {
+  Route,
   BrowserRouter as Router,
   Switch,
-  Route
-} from "react-router-dom";
-import './App.css';
-import Navbar from "../Navbar";
-import { Layout } from 'antd';
-import LandingPage from '../Landing';
-import HomePage from '../Home';
-import SignInPage from '../SignIn';
-import SignUpPage from '../SignUp';
+} from 'react-router-dom';
+
+import * as ROUTES from '../../constants/routes';
+
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
+import HomePage from '../Home';
+import LandingPage from '../Landing';
+import Navbar from '../Navbar';
 import PageNotFound from '../PageNotFound';
-import * as ROUTES from '../../constants/routes';
+import SignInPage from '../SignIn';
+import SignUpPage from '../SignUp';
 
 export default class App extends React.Component {
   constructor(props) {
-    super (props);
+    super(props);
 
     this.state = {
       authUser: null,
@@ -26,10 +28,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { authUser } = this.state;
     return (
       <Router>
         <Layout>
-          <Navbar authUser={this.state.authUser} />
+          <Navbar authUser={authUser} />
           <Layout>
             <Switch>
               <Route exact path={ROUTES.LANDING} component={LandingPage} />

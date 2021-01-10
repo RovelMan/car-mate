@@ -13,7 +13,7 @@ export default function Landing() {
           marginTop: 24,
           minHeight: 280,
         }}
-        >
+      >
         Landing
       </Content>
     </Layout>

@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
@@ -41,7 +41,7 @@ export default function Home() {
           style={{
             padding: 24,
             marginTop: 24,
-            minHeight: 280
+            minHeight: 280,
           }}
         >
           Home

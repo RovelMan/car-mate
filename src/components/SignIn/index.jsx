@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import {
+  Alert, Button, Form, Input, Layout,
+} from 'antd';
 import { compose } from 'recompose';
-import { SignUpLink } from '../SignUp';
-import { withFirebase } from '../Firebase';
+import { withRouter } from 'react-router-dom';
+
 import * as ROUTES from '../../constants/routes';
-import { Alert, Form, Input, Layout, Button } from 'antd';
+
+import { SignUpLink } from '../SignUp';
+import Firebase, { withFirebase } from '../Firebase';
 
 const { Content } = Layout;
 const layout = {
@@ -47,19 +51,20 @@ class SignInFormBase extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   }
 
-  onFinish = (e) => {
+  onFinish = () => {
     const { email, password } = this.state;
- 
-    this.props.firebase
+    const { firebase, history } = this.props;
+
+    firebase
       .doSignIn(email, password)
       .then(() => {
         this.setState({
           email,
-          password
+          password,
         });
-        this.props.history.push(ROUTES.HOME);
+        history.push(ROUTES.HOME);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -69,7 +74,7 @@ class SignInFormBase extends React.Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <Form {...layout} onFinish={this.onFinish} >
+      <Form {...layout} onFinish={this.onFinish}>
         <Form.Item
           label="Email"
           name="email"
@@ -95,13 +100,23 @@ class SignInFormBase extends React.Component {
         </Form.Item>
         {error && <Alert message={error.message} type="error" showIcon />}
       </Form>
-    )
+    );
   }
 }
 
 const SignInForm = compose(
   withRouter,
   withFirebase,
-) (SignInFormBase);
+)(SignInFormBase);
+
+SignInFormBase.defaultProps = {
+  firebase: '',
+  history: '',
+};
+
+SignInFormBase.propTypes = {
+  firebase: Firebase,
+  history: History,
+};
 
 export { SignInForm };

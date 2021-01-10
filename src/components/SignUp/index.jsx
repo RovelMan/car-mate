@@ -1,9 +1,12 @@
 import * as React from 'react';
+import {
+  Alert, Button, Form, Input, Layout,
+} from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import { withFirebase } from '../Firebase';
+
 import * as ROUTES from '../../constants/routes';
-import { Alert, Form, Input, Layout, Button } from 'antd';
+import Firebase, { withFirebase } from '../Firebase';
 
 const { Content } = Layout;
 const layout = {
@@ -48,20 +51,21 @@ class SignUpFormBase extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   }
 
-  onFinish = (e) => {
+  onFinish = () => {
     const { username, email, password } = this.state;
- 
-    this.props.firebase
+    const { firebase, history } = this.props;
+
+    firebase
       .doCreateUser(email, password)
-      .then(authUser => {
+      .then(() => {
         this.setState({
           username,
           email,
-          password
+          password,
         });
-        this.props.history.push(ROUTES.HOME);
+        history.push(ROUTES.HOME);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -75,14 +79,13 @@ class SignUpFormBase extends React.Component {
       error,
     } = this.state;
 
-    const isInvalid =
-      password !== confirmPassword ||
-      password === '' ||
-      email === '' ||
-      username === '';
+    const isInvalid = password !== confirmPassword
+      || password === ''
+      || email === ''
+      || username === '';
 
     return (
-      <Form {...layout} onFinish={this.onFinish} >
+      <Form {...layout} onFinish={this.onFinish}>
         <Form.Item
           label="Username"
           name="username"
@@ -126,19 +129,30 @@ class SignUpFormBase extends React.Component {
         </Form.Item>
         {error && <Alert message={error.message} type="error" showIcon />}
       </Form>
-    )
+    );
   }
 }
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    {'Don\'t have an account? '}
+    <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
 
 const SignUpForm = compose(
   withRouter,
   withFirebase,
-) (SignUpFormBase);
+)(SignUpFormBase);
+
+SignUpFormBase.defaultProps = {
+  firebase: '',
+  history: '',
+};
+
+SignUpFormBase.propTypes = {
+  firebase: Firebase,
+  history: History,
+};
 
 export { SignUpForm, SignUpLink };
