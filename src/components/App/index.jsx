@@ -6,8 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
-
-import * as ROUTES from '../../constants/routes';
+import { withFirebase } from '../Firebase';
 
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
@@ -18,13 +17,27 @@ import PageNotFound from '../PageNotFound';
 import SignInPage from '../SignIn';
 import SignUpPage from '../SignUp';
 
-export default class App extends React.Component {
+import * as ROUTES from '../../constants/routes';
+
+class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       authUser: null,
     };
+  }
+
+  componentDidMount() {
+    const { firebase } = this.props;
+    this.listener = firebase.auth.onAuthStateChanged((authUser) => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
+  componentWillUnmount() {
+    this.listener();
   }
 
   render() {
@@ -49,3 +62,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default withFirebase(App);

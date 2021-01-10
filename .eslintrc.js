@@ -23,6 +23,8 @@ module.exports = {
   ],
   rules: {
     'no-use-before-define': 'off',
+    'no-unused-expressions': 'off',
+    'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'sort-imports-es6-autofix/sort-imports-es6': [2, {

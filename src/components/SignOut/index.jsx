@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
 
 import * as ROUTES from '../../constants/routes';
-import Firebase, { withFirebase } from '../Firebase';
 
 function SignOutButton(props) {
   const { firebase } = props;
@@ -16,12 +16,4 @@ function SignOutButton(props) {
   );
 }
 
-SignOutButton.defaultProps = {
-  firebase: '',
-};
-
-SignOutButton.propTypes = {
-  firebase: Firebase || '',
-};
-
-export default withRouter(withFirebase(SignOutButton));
+export default withFirebase(SignOutButton);

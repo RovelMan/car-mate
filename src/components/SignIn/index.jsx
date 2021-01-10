@@ -5,10 +5,10 @@ import {
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 
-import * as ROUTES from '../../constants/routes';
-
 import { SignUpLink } from '../SignUp';
-import Firebase, { withFirebase } from '../Firebase';
+import { withFirebase } from '../Firebase';
+
+import * as ROUTES from '../../constants/routes';
 
 const { Content } = Layout;
 const layout = {
@@ -18,6 +18,7 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 6, span: 16 },
 };
+
 export default function SignIn() {
   return (
     <Layout style={{ padding: '0 24px 24px' }}>
@@ -54,7 +55,6 @@ class SignInFormBase extends React.Component {
   onFinish = () => {
     const { email, password } = this.state;
     const { firebase, history } = this.props;
-
     firebase
       .doSignIn(email, password)
       .then(() => {
@@ -72,7 +72,6 @@ class SignInFormBase extends React.Component {
   render() {
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
-
     return (
       <Form {...layout} onFinish={this.onFinish}>
         <Form.Item
@@ -108,15 +107,5 @@ const SignInForm = compose(
   withRouter,
   withFirebase,
 )(SignInFormBase);
-
-SignInFormBase.defaultProps = {
-  firebase: '',
-  history: '',
-};
-
-SignInFormBase.propTypes = {
-  firebase: Firebase,
-  history: History,
-};
 
 export { SignInForm };

@@ -4,9 +4,9 @@ import {
 } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
 import * as ROUTES from '../../constants/routes';
-import Firebase, { withFirebase } from '../Firebase';
 
 const { Content } = Layout;
 const layout = {
@@ -54,7 +54,6 @@ class SignUpFormBase extends React.Component {
   onFinish = () => {
     const { username, email, password } = this.state;
     const { firebase, history } = this.props;
-
     firebase
       .doCreateUser(email, password)
       .then(() => {
@@ -78,12 +77,10 @@ class SignUpFormBase extends React.Component {
       confirmPassword,
       error,
     } = this.state;
-
     const isInvalid = password !== confirmPassword
       || password === ''
       || email === ''
       || username === '';
-
     return (
       <Form {...layout} onFinish={this.onFinish}>
         <Form.Item
@@ -144,15 +141,5 @@ const SignUpForm = compose(
   withRouter,
   withFirebase,
 )(SignUpFormBase);
-
-SignUpFormBase.defaultProps = {
-  firebase: '',
-  history: '',
-};
-
-SignUpFormBase.propTypes = {
-  firebase: Firebase,
-  history: History,
-};
 
 export { SignUpForm, SignUpLink };
